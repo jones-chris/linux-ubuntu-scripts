@@ -19,11 +19,33 @@ read -p 'Type the real name of the account to create:  ' COMMENT
 #Ask for password.
 read -p 'Type the password of the account to create:  ' PASSWORD
 
-#Create the user.
+#Check that input variables are not empty.
+if [ -z "${USER_NAME}" ] || [ -z "${COMMENT}" ] || [ -z "${PASSWORD}" ] ; 
+then
+	echo 'The username, comment, and password cannot be empty'
+	exit 1
+fi
+
+#Create the new user
 useradd -c "${COMMENT}" -m ${USER_NAME}
+OUTPUT=$?
+if [ ${OUTPUT} -ne 0 ] ;
+then
+	echo 'There was an exception when running the useradd command'
+	exit 1
+fi
 
 #Set the password for the user.
 echo "${USER_NAME}:${PASSWORD}" | chpasswd
 
+
 #Force password change on first login.
 passwd -e ${USER_NAME}
+
+#Display username, password, and host where account was created.
+HOSTNAME=$(hostname)
+echo "The user was created!" 
+echo "Username:  $USER_NAME"
+echo "Password:  $PASSWORD"
+echo "Hostname:  $HOSTNAME"
+
