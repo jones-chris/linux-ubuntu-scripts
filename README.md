@@ -4,4 +4,4 @@ This is a repository of the shell scripts I'm writing as I progress through the 
 
 https://www.udemy.com/linux-shell-scripting-projects/
 
-The course uses a CentOS image, while I have created these scripts using Ubuntu 18.04, so there are some differences.
+The course uses a CentOS image, but I have created these scripts using Ubuntu 18.04, so there are some differences.
