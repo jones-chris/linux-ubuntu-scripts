@@ -3,6 +3,18 @@
 #This script creates an account on the local system.
 #You will be prompted for the account name and password.
 
+display_usage() {
+	echo "SYNOPSIS"
+	echo "  sudo ./new-add-users.sh [USERNAME] [USER ACCOUNT COMMENTS]"
+	echo "DESCRIPTION"
+	echo "  This script must be run as root.  It creates a new user account using the username and user account comments arguments."
+	echo "  A random password is created for the account.  The new user must change their password on first login."
+	echo "AUTHOR"
+	echo "  Written by Chris Jones"
+	echo "REPORTING BUGS"
+	echo "  Find Chris!"
+}
+
 #First check that this script is being executed as the root user
 if [ "$(id -u)" != 0 ] ; 
 then
@@ -18,12 +30,15 @@ COMMENT=$2
 if [ -z "${USER_NAME}" ] || [ -z "${COMMENT}" ] ;
 then
         echo 'Error:  The username and comment cannot be empty'
-        exit 1
+	display_usage
+	exit 1
 fi
 
 if [ "$3" != "" ] ; 
 then
 	echo 'Error:  This command only takes two arguments, username and comment.'
+	display_usage
+	exit 1
 fi
 
 #Generate random password.
